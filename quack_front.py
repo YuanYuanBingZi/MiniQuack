@@ -256,7 +256,7 @@ def main():
     print(ast)
     # Build symbol table, starting with the hard-coded json table
     # provided by Pranav.  We'll follow that structure for the rest
-    builtins = open("lib/builtin_methods.json")
+    builtins = open("qklib/builtin_methods.json")
     symtab = json.load(builtins)
     ast.walk(symtab, method_table_walk)
     print(json.dumps(symtab,indent=4))
