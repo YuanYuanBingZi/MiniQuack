@@ -1,0 +1,11 @@
+class Point(x: Int, y: Int) extends Obj {
+
+def move(x: Int, y: Int) {
+  blah;
+  blah;
+}
+blah; blah; blah;
+}
+blah;
+blah;
+
