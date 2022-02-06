@@ -10,7 +10,7 @@ class and method declarations.
 
 Thanks to Pranav Mathur for the initial
 symbol table of built-in classes 
-(in `lib/builtin_methods.json`).
+(in `qklib/builtin_methods.json`).
 I have followed that structure in filling
 in additional classes and methods from
 the source file. 
