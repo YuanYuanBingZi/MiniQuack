@@ -20,34 +20,6 @@ def cli():
     return args
 
 
-quack_grammar = r"""
-?start: program
-
-?program: classes block
-classes: clazz*
-
-clazz: _class_sig  "{" methods block "}"
-_class_sig: "class" name "("  formals ")" [ "extends" name ] 
-methods: method*
-
-formals: formal ("," formal)*
-formal: name ":" name
-
-?constructor: block
-
-name: IDENT -> ident
-block: BLAH*
-
-method: "def" name "(" formals ")" returns "{" block "}"
-returns: (":"  name)?
-
-BLAH: "blah;"
-IDENT: /[_a-zA-Z][_a-zA-Z0-9]*/
-
-%import common.WS 
-%ignore WS
-"""
-
 def cli():
     cli_parser = argparse.ArgumentParser()
     cli_parser.add_argument("source", type=argparse.FileType("r"),
@@ -98,9 +70,6 @@ class ASTNode:
     def c_eval(self, true_branch: str, false_branch: str) -> List[str]:
         raise NotImplementedError(f"c_eval not implemented for node type {self.__class__.__name__}")
 
-    def json(self) -> str:
-        return f"No json method defined for {self.__class__.__name__}"
-
 
 class ProgramNode(ASTNode):
     def __init__(self, classes: List[ASTNode], main_block: ASTNode):
@@ -129,11 +98,10 @@ class ClassNode(ASTNode):
         methods_str = "\n".join([f"{method}\n" for method in self.methods])
         return f"""
         class {self.name}({formals_str}){LB}
-        /* methods go here */
         {methods_str}
-        /* statements */
+        /* statements as a constructor */
         {self.constructor}
-        {RB}
+        {RB} /* end class {self.name} */
         """
 
     # Example walk to gather method signatures
@@ -165,7 +133,7 @@ class MethodNode(ASTNode):
         /* method */ 
         def {self.name}({formals_str}): {self.returns} {LB}
         {self.body}
-        {RB}
+        {RB} /* End of method {self.name} */ 
         """
 
     # Add this method to the symbol table
@@ -186,13 +154,73 @@ class FormalNode(ASTNode):
     def __str__(self):
         return f"{self.var_name}: {self.var_type}"
 
+
 class BlockNode(ASTNode):
-    def __init__(self, blahblah: str):
-        self.blahblah = blahblah
+    def __init__(self, stmts: List[ASTNode]):
+        self.stmts = stmts
+        self.children = stmts
+
+    def __str__(self):
+        return "".join([str(stmt) + ";\n" for stmt in self.stmts])
+
+
+class AssignmentNode(ASTNode):
+    """Placeholder ... not defined in grammar yet"""
+    def __init__(self, blah: str):
+        self.blah = blah
         self.children = []
 
     def __str__(self):
-        return f"{self.blahblah}"
+        return  self.blah
+
+class ExprNode(ASTNode):
+    """Just identifiers in this stub"""
+    def __init__(self, e):
+        self.e = e
+        self.children = [e]
+
+    def __str__(self):
+        return str(self.e)
+
+class VariableRefNode(ASTNode):
+    """Reference to a variable in an expression.
+    This will typically evaluate to a 'load' operation.
+    """
+    def __init__(self, name: str):
+        assert isinstance(name, str)
+        self.name = name
+        self.children = []
+
+    def __str__(self):
+        return self.name
+
+class IfStmtNode(ASTNode):
+    def __init__(self,
+                 cond: ASTNode,
+                 thenpart: ASTNode,
+                 elsepart: ASTNode):
+        self.cond = cond
+        self.thenpart = thenpart
+        self.elsepart = elsepart
+        self.children = [cond, thenpart, elsepart]
+
+    def __str__(self):
+        return f"""if {self.cond} {LB}\n
+                {self.thenpart}
+             {RB} else {LB}
+                {self.elsepart} {LB}
+            {RB}
+            """
+
+class CondNode(ASTNode):
+    """Boolean condition. It can evaluate to jumps,
+    but in this grammar it's just a placeholder.
+    """
+    def __init__(self, cond: str):
+        self.cond = cond
+
+    def __str__(self):
+        return f"{self.cond}"
 
 
 
@@ -226,6 +254,8 @@ class ASTBuilder(Transformer):
         return e
 
     def formals(self, e):
+        if e[0] is None:
+            return []
         return e
 
     def formal(self, e):
@@ -233,25 +263,60 @@ class ASTBuilder(Transformer):
         var_name, var_type = e
         return FormalNode(var_name, var_type)
 
+    def expr(self, e):
+        log.debug("->expr")
+        return ExprNode(e[0])
+
     def ident(self, e):
         """A terminal symbol """
         log.debug("->ident")
         return e[0]
 
+    def variable_ref(self, e):
+        """A reference to a variable"""
+        log.debug("->variable_ref")
+        return VariableRefNode(e[0])
+
     def block(self, e) -> ASTNode:
         log.debug("->block")
-        blahs = [str(id) for id in e]
-        return BlockNode("\n".join(blahs))
+        stmts = e
+        return BlockNode(stmts)
+
+    def assignment(self, e) -> ASTNode:
+        log.debug("->assignment")
+        # Structure of e is [Token('BLAH','blah')]
+        blah = str(e[0])
+        return AssignmentNode(blah)
+
+
+    def ifstmt(self, e) -> ASTNode:
+        log.debug("->ifstmt")
+        cond, thenpart, elsepart = e
+        return IfStmtNode(cond, thenpart, elsepart)
+
+    def otherwise(self, e) -> ASTNode:
+        log.debug("->otherwise")
+        return e
+
+    def elseblock(self, e) -> ASTNode:
+        log.debug("->elseblock")
+        return e[0]  # Unwrap one level of block
+
+    def cond(self, e) -> ASTNode:
+        log.debug("->cond")
+        return e
+
+
 
 def method_table_walk(node: ASTNode, visit_state: dict):
         node.method_table_visit(visit_state)
 
 def main():
     args = cli()
-    quack_parser = Lark(quack_grammar)
+    quack_parser = Lark(open("qklib/quack_grammar.txt", "r"))
     text = "".join(args.source.readlines())
     tree = quack_parser.parse(text)
-    # print(tree.pretty("   "))
+    print(tree.pretty("   "))
     ast: ASTNode = ASTBuilder().transform(tree)
     print(ast)
     # Build symbol table, starting with the hard-coded json table
