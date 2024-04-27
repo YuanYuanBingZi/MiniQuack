@@ -20,6 +20,7 @@ def cli():
     return args
 
 
+<<<<<<< HEAD
 def cli():
     cli_parser = argparse.ArgumentParser()
     cli_parser.add_argument("source", type=argparse.FileType("r"),
@@ -27,6 +28,8 @@ def cli():
     args = cli_parser.parse_args()
     return args
 
+=======
+>>>>>>> 13015eb (delete repetitive definition of cli)
 LB = "{"
 RB = "}"
 
