@@ -71,6 +71,13 @@ class Float:
     def __repr__(self):
         return f"Float({self.value})"
 
+class Boolean:
+    def __init__(self, value):
+        self.value = value
+    
+    def __repr__(self):
+        return f"Boolean({self.value})"
+
 
 class Call:
     def __init__(self, obj, method, args):
@@ -153,3 +160,26 @@ class NotEqual:
     
     def __repr__(self):
         return f"NotEqual({self.left}, {self.right})"
+
+class And:
+    def __init__(self, left, right):
+        self.left = left
+        self.right = right
+
+    def __repr__(self):
+        return f"And({self.left}, {self.right})"
+
+class Or:
+    def __init__(self, left, right):
+        self.left = left
+        self.right = right
+
+    def __repr__(self):
+        return f"Or({self.left}, {self.right})"
+
+class Not:
+    def __init__(self, expr):
+        self.expr = expr
+
+    def __repr__(self):
+        return f"Not({self.expr})"

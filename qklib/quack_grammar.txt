@@ -18,11 +18,16 @@ expr: term
       | expr "<=" term -> lte
       | expr "==" term -> eq
       | expr "!=" term -> neq
+      | expr "&&" term -> and_op
+      | expr "||" term -> or_op
+      | "!" expr -> not_op
       | call
 
 term: INT      -> int
       | FLOAT     -> float
       | STRING    -> string
+      | "true"    -> true 
+      | "false"   -> false
       | IDENT     -> var
 
 call: IDENT "." IDENT "(" (expr ("," expr)*)? ")"
@@ -32,7 +37,7 @@ while_statement: "while" "(" expr ")" block
 block: "{" assignment* "}"
 
 IDENT: /[_a-zA-Z][_a-zA-Z0-9]*/
-TYPE: "Int" | "Float" | "String"
+TYPE: "Int" | "Float" | "String" | "Bool"
 
 %import common.NEWLINE
 %import common.WS

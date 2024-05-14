@@ -1,7 +1,8 @@
 from lark import Transformer
-from quack_ast import (Add, Assign, Block, Call, Div, Equal, Float,
-                       GreaterThan, GreaterThanOrEqual, If, Int, LessThan,
-                       LessThanOrEqual, Mul, NotEqual, String, Sub, Var, While)
+from quack_ast import (Add, And, Assign, Block, Boolean, Call, Div, Equal,
+                       Float, GreaterThan, GreaterThanOrEqual, If, Int,
+                       LessThan, LessThanOrEqual, Mul, Not, NotEqual, Or,
+                       String, Sub, Var, While)
 
 
 #将parser生成的parse tree转换成AST
@@ -44,6 +45,25 @@ class QuackTransformer(Transformer):
         self.check_types(left, right, ('Int', 'Float'))
         return Div(left, right)
     
+    def and_op(self, items):
+        left = items[0]
+        right = items[1]
+        self.check_types(left, right, ('Bool',))
+        return And(left, right)
+    
+    def or_op(self, items):
+        left = items[0]
+        right = items[1]
+        self.check_types(left, right, ('Bool',))
+        return Or(left, right)
+    
+    def not_op(self, items):
+        expr = items[0]
+        expr_type = self.get_type(expr)
+        if expr_type != 'Bool':
+            raise TypeError(f"Type mismatch in not operation: expected Bool, got {expr_type}")
+        return Not(expr)
+    
     def check_types(self, left, right, expected_types):
         left_type = self.get_type(left)
         right_type = self.get_type(right)
@@ -59,6 +79,8 @@ class QuackTransformer(Transformer):
             return 'Float'
         elif isinstance(node, String):
             return 'String'
+        elif isinstance(node, Boolean):
+            return 'Bool'
         else:
             return 'Unknown'
 
@@ -91,6 +113,12 @@ class QuackTransformer(Transformer):
         left = items[0]
         right = items[1]
         return NotEqual(left, right)
+    
+    def true(self, items):
+        return Boolean(True)
+    
+    def false(self, items):
+        return Boolean(False)
     
     def call(self,items):
         obj = items[0]
