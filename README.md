@@ -3,15 +3,16 @@ The basic framework of this project is forked by the sample code from "Lark Gram
 
 
 # Nano Quack
-This is the second project of CS 461. Its requirement includes:
-1. Parse some basic sentences for Quack Language
-2. Not include control flow
-   no if statements, no while statements
-3. Each Assignment includes the Type Declaration 
-   Example: `x: Int = 13 + y;`
-4. Hold Static Checking
-   Example: `x: Int = "Why would you " + "do this?" - 3;`
-   we will translate it without complaint.  It will probably cause car crashes, house fires, and seg faults, but nano-quack has no protections against any of that. (from Professor Michal)
+This is the second project of CS 461. Its requirement includes:  
+1. Parse some basic sentences for Quack Language  
+2. Not include control flow  
+   no if statements, no while statements  
+3. Each Assignment includes the Type Declaration   
+   Example: `x: Int = 13 + y;`  
+4. Hold Static Checking  
+   Example: `x: Int = "Why would you " + "do this?" - 3;`  
+   we will translate it without complaint.  It will probably cause car crashes, house fires, and seg   faults, but nano-quack has no protections against any of that. (from Professor Michal)  
+
 
 ## To Run
 
