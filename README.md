@@ -18,12 +18,13 @@ Mini-Quack is the third project of CS 461. It includes control flow and type inf
 
 ## Project Structure
 
-- `qklib/`: Contains the source code files.
-  - `lexer.lark`: Lexer definition.
-  - `parser.py`: Parser implementation.
-  - `transformer.py`: AST transformation logic.
-  - `type_inference.py`: Type inference logic.
-  - `code_generator.py`: Code generation logic.
+- `qklib/`: Contains the necessary parsing files for Quack.
+  - `quack_grammar.txt`: Grammar Definition.
+  - `quack_ast.py`: Build AST Nodes.
+  - `quack_parser.py`: Parser implementation.
+  - `quack_transformer.py`: AST transformation logic.
+  - `quack_type_inference.py`: Type inference logic.
+  - `quack_code_generator.py`: Code generation logic.
   - `vm.py`: Virtual machine implementation.
 - `samples/`: Contains sample test cases.
 - `OBJ/`: Contains generated assembly or object files.
