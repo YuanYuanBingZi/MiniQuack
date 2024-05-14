@@ -18,6 +18,9 @@ def test_parser():
     f: Int =  z / 3;
     g: Int = obj.method(a, b);
     h: String = "Why would you" + "do this?" - 3;
+    i: Float = 3.14;
+    j: Float = e * 2.0;
+    k: Float = f / 3.0;
     """.strip()
     parse_tree = parser.parse(code)
     print(parse_tree.pretty())

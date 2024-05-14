@@ -64,6 +64,13 @@ class String:
     def __repr__(self):
         return f"String({self.value})"
 
+class Float:
+    def __init__(self, value):
+        self.value = value
+    
+    def __repr__(self):
+        return f"Float({self.value})"
+
 
 class Call:
     def __init__(self, obj, method, args):

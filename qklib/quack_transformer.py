@@ -1,5 +1,6 @@
 from lark import Transformer
-from quack_ast import Add, Assign, Call, Div, Mul, Number, String, Sub, Var
+from quack_ast import (Add, Assign, Call, Div, Float, Mul, Number, String, Sub,
+                       Var)
 
 
 #将parser生成的parse tree转换成AST
@@ -40,11 +41,18 @@ class QuackTransformer(Transformer):
         return Var(str(items[0]))
     
     def number(self, items):
-        return Number(int(items[0]))
+        value = str(items[0])
+        if '.' in value:
+            return Float(float(value))
+        else:
+            return Number(int(value))
     
     def string(self, items):
         # 移除字符串周围的引号
         return String(str(items[0])[1:-1])
+    
+    def float(self, items):
+        return Float(float(items[0]))
     
     def expr(self, items):
         return items[0]

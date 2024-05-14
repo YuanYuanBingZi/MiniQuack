@@ -15,6 +15,7 @@ expr: term
       | call
 
 term: NUMBER      -> number
+      | FLOAT     -> float
       | STRING    -> string
       | IDENT     -> var
 
@@ -26,6 +27,7 @@ TYPE: "Int" | "Float" | "String"
 %import common.NEWLINE
 %import common.WS
 %import common.NUMBER
+%import common.FLOAT
 %import common.ESCAPED_STRING -> STRING
 %ignore WS
 %ignore NEWLINE
