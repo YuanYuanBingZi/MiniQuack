@@ -1,0 +1,3 @@
+a: Int = obj.method(2, 3);
+b: Float = obj.method(3.5, 4.0);
+c: String = obj.method("Hi, I'm Quack", "Have a Nice Day!");

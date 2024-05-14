@@ -1,0 +1,16 @@
+x: Int = 10;
+if ( x > 5 ) {
+    y: Int = 20;
+} else{
+    y: Int = 5;
+}
+
+z: Int = x + y;
+
+if ( x > 3.5 ) {
+    y: String = "I'm a happy Quack!";
+} else{}
+
+if( a > b) {
+    y: Float = 1.5;
+} 
