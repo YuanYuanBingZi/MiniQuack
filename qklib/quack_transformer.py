@@ -6,32 +6,62 @@ from quack_ast import (Add, Assign, Block, Call, Div, Equal, Float,
 
 #将parser生成的parse tree转换成AST
 class QuackTransformer(Transformer):
+    def __init__(self):
+        self.symbols = {}
+
     def assignment(self, items):
         var = str(items[0])
         vartype = str(items[1])
         expr = items[2]
+        self.symbols[var] = vartype
         return Assign(var, vartype, expr)
     
     def add(self, items):
         left = items[0]
         right =items[1]
-        return Add(left, right)
+        left_type = self.get_type(left)
+        right_type = self.get_type(right)
+        if left_type == right_type and left_type in ('Int', 'Float', 'String'):
+            return Add(left, right)
+        else:
+            raise TypeError(f"Type mismatch in add operation: {left_type} and {right_type}")
     
     def sub(self, items):
         left = items[0]
         right =items[1]
+        self.check_types(left, right, ('Int', 'Float'))
         return Sub(left, right)
     
     def mul(self, items):
         left = items[0]
         right =items[1]
+        self.check_types(left, right, ('Int', 'Float'))
         return Mul(left, right)
     
     def div(self, items):
         left = items[0]
         right =items[1]
+        self.check_types(left, right, ('Int', 'Float'))
         return Div(left, right)
     
+    def check_types(self, left, right, expected_types):
+        left_type = self.get_type(left)
+        right_type = self.get_type(right)
+        if left_type != right_type or left_type not in expected_types:
+            raise TypeError(f"Type mismatch: expected {expected_types}, got{left_type} and {right_type}")
+    
+    def get_type(self, node):
+        if isinstance(node, Var):
+            return self.symbols.get(node.name, 'Unknown')
+        elif isinstance(node, Int):
+            return 'Int'
+        elif isinstance(node, Float):
+            return 'Float'
+        elif isinstance(node, String):
+            return 'String'
+        else:
+            return 'Unknown'
+
     def lt(self, items):
         left = items[0]
         right = items[1]
@@ -80,7 +110,10 @@ class QuackTransformer(Transformer):
         return While(condition, body)
     
     def var(self, items):
-        return Var(str(items[0]))
+        var_name = str(items[0])
+        if var_name not in self.symbols:
+            raise NameError(f"Variable '{var_name}' is not defined")
+        return Var(var_name)
     
     def int(self, items):
         return Int(int(items[0]))
