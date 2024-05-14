@@ -13,6 +13,23 @@ This is the second project of CS 461. Its requirement includes:
    Example: `x: Int = "Why would you " + "do this?" - 3;`  
    we will translate it without complaint.  It will probably cause car crashes, house fires, and seg   faults, but nano-quack has no protections against any of that. (from Professor Michal)  
 
+# Mini Quack
+Mini-Quack is the third project of CS 461. It includes control flow and type inference.
+
+## Project Structure
+
+- `qklib/`: Contains the source code files.
+  - `lexer.lark`: Lexer definition.
+  - `parser.py`: Parser implementation.
+  - `transformer.py`: AST transformation logic.
+  - `type_inference.py`: Type inference logic.
+  - `code_generator.py`: Code generation logic.
+  - `vm.py`: Virtual machine implementation.
+- `samples/`: Contains sample test cases.
+- `OBJ/`: Contains generated assembly or object files.
+- `quack.sh`: Script to compile and run a Quack program.
+- `quackc.sh`: Script to compile a Quack program without running it.
+
 
 ## To Run
 
