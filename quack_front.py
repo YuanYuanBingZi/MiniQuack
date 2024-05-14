@@ -1,13 +1,13 @@
 """Front end for Quack"""
 
-from lark import Lark, Transformer
 import argparse
 import json
-import sys
-
-from typing import List,  Callable
-
 import logging
+import sys
+from typing import Callable, List
+
+from lark import Lark, Transformer
+
 logging.basicConfig()
 log = logging.getLogger(__name__)
 log.setLevel(logging.INFO)

@@ -1,0 +1,5 @@
+str1: String = "hello";
+str2: String = str1 + " world";
+str3: String = str2 + "!";
+
+a:Int = str1 + b;
