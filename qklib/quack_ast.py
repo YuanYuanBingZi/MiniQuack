@@ -26,6 +26,22 @@ class Sub:
     def __repr__(self):
         return f"Sub({self.left}, {self.right})"
 
+class Mul:
+    def __init__(self, left, right):
+        self.left = left
+        self.right = right 
+    
+    def __repr__(self):
+        return f"Mul({self.left}, {self.right})"
+
+class Div:
+    def __init__(self, left, right):
+        self.left = left
+        self.right = right 
+    
+    def __repr__(self):
+        return f"Div({self.left}, {self.right})"
+
 class Var:
     #Var表示变量
     def __init__(self, name):
@@ -40,3 +56,13 @@ class Number:
     
     def __repr__(self):
         return f"Number({self.value})"
+
+
+class Call:
+    def __init__(self, obj, method, args):
+        self.obj = obj
+        self.method = method
+        self.args = args
+    
+    def __repr__(self):
+        return f"Call({self.obj}, {self.method}, {self.args})"

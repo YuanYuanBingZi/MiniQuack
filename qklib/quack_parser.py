@@ -10,10 +10,13 @@ parser = Lark(grammar, start='start', parser='lalr', transformer=QuackTransforme
 
 def test_parser():
     code = """
-    y: Int = 13;
-    x: Int = 7;
-    z: Int = x + y;
-    w: Int = z - 5;
+    a: Int = 13;
+    b: Int = 7;
+    c: Int = a + b;
+    d: Int = c - 5;
+    e: Int = c * 2;
+    f: Int =  z / 3;
+    g: Int = obj.method(a, b);
     """.strip()
     parse_tree = parser.parse(code)
     print(parse_tree.pretty())

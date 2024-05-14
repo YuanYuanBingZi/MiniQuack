@@ -10,13 +10,17 @@ assignment: IDENT ":" TYPE "=" expr ";"
 expr: term 
       | expr "+" term -> add
       | expr "-" term -> sub 
+      | expr "*" term -> mul
+      | expr "/" term -> div
+      | call
 
 term: NUMBER      -> number
       | IDENT     -> var
 
+call: IDENT "." IDENT "(" (expr ("," expr)*)? ")"
 
 IDENT: /[_a-zA-Z][_a-zA-Z0-9]*/
-TYPE: "Int"
+TYPE: "Int" | "Float" | "String"
 
 %import common.NEWLINE
 %import common.WS
