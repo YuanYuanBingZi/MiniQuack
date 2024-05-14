@@ -1,0 +1,14 @@
+a: Bool = true;
+b: Bool = false;
+c: Bool = a && b;
+d: Bool = a || b;
+e: Bool = !a;
+
+x: Int = 5;
+y: Int = 10;
+f: Bool = x < y;
+g: Bool = x > y;
+h: Bool = x <= y;
+i: Bool = x >= y;
+j: Bool = x == y;
+k: Bool = x != y;
