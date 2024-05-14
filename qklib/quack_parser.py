@@ -8,21 +8,12 @@ with open('quack_grammar.txt', 'r') as file:
 # build the parser
 parser = Lark(grammar, start='start', parser='lalr', transformer=QuackTransformer());
 
-def test_parser():
-    code = """
-    a: Int = 13;
-    b: Int = 7;
-    c: Int = a + b;
-    d: Int = c - 5;
-    e: Int = c * 2;
-    f: Int =  z / 3;
-    g: Int = obj.method(a, b);
-    h: String = "Why would you" + "do this?" - 3;
-    i: Float = 3.14;
-    j: Float = e * 2.0;
-    k: Float = f / 3.0;
-    """.strip()
-    parse_tree = parser.parse(code)
-    print(parse_tree.pretty())
+# strip()
+def parse_code(code):
+    return parser.parse(code)
 
-test_parser()
+if __name__ == "__main__":
+    import sys 
+    code = open(sys.argv[1]).read()
+    tree = parse_code(code)
+    print(tree.pretty())

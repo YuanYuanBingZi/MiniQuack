@@ -1,6 +1,7 @@
 from lark import Transformer
-from quack_ast import (Add, Assign, Call, Div, Float, Mul, Number, String, Sub,
-                       Var)
+from quack_ast import (Add, Assign, Block, Call, Div, Equal, Float,
+                       GreaterThan, GreaterThanOrEqual, If, Int, LessThan,
+                       LessThanOrEqual, Mul, NotEqual, String, Sub, Var, While)
 
 
 #将parser生成的parse tree转换成AST
@@ -31,22 +32,59 @@ class QuackTransformer(Transformer):
         right =items[1]
         return Div(left, right)
     
+    def lt(self, items):
+        left = items[0]
+        right = items[1]
+        return LessThan(left, right)
+    
+    def gt(self, items):
+        left = items[0]
+        right = items[1]
+        return GreaterThan(left, right)
+    
+    def lte(self, items):
+        left = items[0]
+        right = items[1]
+        return LessThanOrEqual(left, right)
+    
+    def gte(self, items):
+        left = items[0]
+        right = items[1]
+        return GreaterThanOrEqual(left, right)
+    
+    def eq(self, items):
+        left = items[0]
+        right = items[1]
+        return Equal(left, right)
+    
+    def neq(self, items):
+        left = items[0]
+        right = items[1]
+        return NotEqual(left, right)
+    
     def call(self,items):
         obj = items[0]
         method = str(items[1])
         args = items[2:]
         return Call(obj, method, args)
     
+    def if_statement(self, items):
+        condition = items[0]
+        then_body = items[1]
+        else_body = items[2] if len(items) > 2 else Block([])
+        return If(condition, then_body, else_body)
+    
+    def while_statement(self, items):
+        condition = items[0]
+        body = items[1]
+        return While(condition, body)
+    
     def var(self, items):
         return Var(str(items[0]))
     
-    def number(self, items):
-        value = str(items[0])
-        if '.' in value:
-            return Float(float(value))
-        else:
-            return Number(int(value))
-    
+    def int(self, items):
+        return Int(int(items[0]))
+        
     def string(self, items):
         # 移除字符串周围的引号
         return String(str(items[0])[1:-1])
@@ -56,3 +94,6 @@ class QuackTransformer(Transformer):
     
     def expr(self, items):
         return items[0]
+    
+    def block(self, items):
+        return Block(items)
