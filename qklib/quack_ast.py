@@ -57,6 +57,13 @@ class Number:
     def __repr__(self):
         return f"Number({self.value})"
 
+class String:
+    def __init__(self, value):
+        self.value = value
+    
+    def __repr__(self):
+        return f"String({self.value})"
+
 
 class Call:
     def __init__(self, obj, method, args):

@@ -17,6 +17,7 @@ def test_parser():
     e: Int = c * 2;
     f: Int =  z / 3;
     g: Int = obj.method(a, b);
+    h: String = "Why would you" + "do this?" - 3;
     """.strip()
     parse_tree = parser.parse(code)
     print(parse_tree.pretty())

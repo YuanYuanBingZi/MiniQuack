@@ -15,6 +15,7 @@ expr: term
       | call
 
 term: NUMBER      -> number
+      | STRING    -> string
       | IDENT     -> var
 
 call: IDENT "." IDENT "(" (expr ("," expr)*)? ")"
@@ -25,5 +26,6 @@ TYPE: "Int" | "Float" | "String"
 %import common.NEWLINE
 %import common.WS
 %import common.NUMBER
+%import common.ESCAPED_STRING -> STRING
 %ignore WS
 %ignore NEWLINE
