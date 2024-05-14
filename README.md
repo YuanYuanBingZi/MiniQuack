@@ -1,12 +1,5 @@
-# This is the intermediate project of CS 461 at UO
-The basic framework of this project is forked by the sample code from "Lark Grammar to AST and Symbol Table". Here is its original description:
-Here is a small example of parsing some parts of the Quack language (class and 
-method declarations), transforming the Lark parse tree into an AST with our own custom classes, and then walking the AST to populate a symbol table with 
-class and method declarations. 
-
-Thanks to Pranav Mathur for the initial symbol table of built-in classes 
-(in `qklib/builtin_methods.json`).I have followed that structure in filling
-in additional classes and methods from the source file. 
+# Nano Quack & Mini Quack - intermediate project of CS 461 at UO
+The basic framework of this project is forked by the sample code from "Lark Grammar to AST and Symbol Table". Here is its original description: A small example of parsing some parts of the Quack language (class and method declarations), transforming the Lark parse tree into an AST with our own custom classes, and then walking the AST to populate a symbol table with class and method declarations. Thanks to Pranav Mathur for the initial symbol table of built-in classes (in `qklib/builtin_methods.json`).I have followed that structure in filling in additional classes and methods from the source file. 
 
 ## To Run
 
