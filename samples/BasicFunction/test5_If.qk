@@ -1,16 +1,16 @@
 x: Int = 10;
-if ( x > 5 ) {
+x1: Bool = x > 5;
+if ( x1 ) {
     y: Int = 20;
+    x: Int = 8;
 } else{
     y: Int = 5;
 }
 
 z: Int = x + y;
+a: Bool = x > 3;
 
-if ( x > 3.5 ) {
+if ( a ) {
     y: String = "I'm a happy Quack!";
 } else{}
 
-if( a > b) {
-    y: Float = 1.5;
-} 

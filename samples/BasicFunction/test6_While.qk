@@ -1,5 +1,6 @@
 x: Int = 0;
-while (x < 10) {
+x1: Bool = x < 10;
+while (x1) {
     x: Int = x + 1;
 }
 y: Int = x * 2;
