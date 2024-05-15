@@ -41,9 +41,9 @@ Mini-Quack is the third project of CS 461. It includes control flow and type inf
       - `test3_VarNotdefined.qk'`: Error of VarNotDefined
       - `test4_Boolean.qk'`: Boolean Assignment, Boolean Type for logic Op
       - `test5_functions.qk'`: Function Declaration
-   - `blahblahblah.qk`:
-   - `formals.qk`:
-   - `ifelse`:
+   - `blahblahblah.qk`: original test code
+   - `formals.qk`: original test code
+   - `ifelse`: original test code
   
   - `vm.py`: Virtual machine implementation.
 - `OBJ/`: Contains generated assembly or object files.
