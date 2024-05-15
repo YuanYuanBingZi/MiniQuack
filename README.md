@@ -27,6 +27,24 @@ Mini-Quack is the third project of CS 461. It includes control flow and type inf
   - `quack_code_generator.py`: Code generation logic.
   - `vm.py`: Virtual machine implementation.
 - `samples/`: Contains sample test cases.
+   - `BasicFunction/`: Test Cases for basic function testing.
+      - `test1_Int.qk`: 
+      - `test2_Float.qk'`:
+      - `test3_String.qk'`:
+      - `test4_Call.qk'`:
+      - `test5_If.qk'`:
+      - `test6_While.qk'`:
+   - `TypeInference/`: Test Cases for Type Inference testing.
+      - `test1_TypeOperations.qk`: 
+      - `test2_TypeMismatch.qk'`:
+      - `test3_VarNotdefined.qk'`:
+      - `test4_Boolean.qk'`:
+      - `test5_functions.qk'`:
+   - `blahblahblah.qk`:
+   - `formals.qk`:
+   - `ifelse`:
+  
+  - `vm.py`: Virtual machine implementation.
 - `OBJ/`: Contains generated assembly or object files.
 - `quack.sh`: Script to compile and run a Quack program.
 - `quackc.sh`: Script to compile a Quack program without running it.
