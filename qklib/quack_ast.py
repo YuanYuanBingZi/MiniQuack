@@ -79,14 +79,39 @@ class Boolean:
         return f"Boolean({self.value})"
 
 
-class Call:
-    def __init__(self, obj, method, args):
-        self.obj = obj
-        self.method = method
+class FuncCall:
+    def __init__(self, func_name, args):
+        self.func_name = func_name
         self.args = args
+
+    def __repr__(self):
+        return f"FuncCall({self.func_name}, {self.args})"
+
+class MethodCall:
+    def __init__(self, obj, method_name, args):
+        self.obj = obj
+        self.method_name = method_name
+        self.args = args
+
+    def __repr__(self):
+        return f"MethodCall({self.obj}, {self.method_name}, {self.args})"
+
+class FuncDef:
+    def __init__(self, name, params, return_type, body):
+        self.name = name
+        self.params = params 
+        self.return_type = return_type
+        self.body = body 
     
     def __repr__(self):
-        return f"Call({self.obj}, {self.method}, {self.args})"
+        return f"FuncDef({self.name}, {self.params}, {self.return_type}, {self.body})"
+
+class Return:
+    def __init__(self, expr):
+        self.expr = expr 
+    
+    def __repr__(self):
+        return f"Return({self.expr})"
 
 class Block:
     def __init__(self, statements):
@@ -111,6 +136,13 @@ class While:
     
     def __repr__(self):
         return f"While({self.condition}, {self.body})"
+
+class Print:
+    def __init__(self, expr):
+        self.expr = expr
+
+    def __repr__(self):
+        return f"Print({self.expr})"
 
 class LessThan:
     def __init__(self, left, right):

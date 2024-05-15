@@ -3,7 +3,7 @@
 
 start: statement+
 
-statement: assignment | if_statement | while_statement
+statement: assignment | if_statement | while_statement | func_def | return_statement | print_statement
 
 assignment: IDENT ":" TYPE "=" expr ";"
 
@@ -30,14 +30,21 @@ term: INT      -> int
       | "false"   -> false
       | IDENT     -> var
 
-call: IDENT "." IDENT "(" (expr ("," expr)*)? ")"
+call: IDENT "(" (expr ("," expr)*)? ")" -> func_call
+    | IDENT "." IDENT "(" (expr ("," expr)*)? ")" -> method_call
+
+func_def: "def" IDENT "(" (param ("," param)*)? ")" ":" TYPE block
+param: IDENT ":" TYPE
+return_statement: "return" expr ";"
+print_statement: "print" "(" expr ")"";"
+
 if_statement: "if" "(" expr ")" block ("else" block)?
 while_statement: "while" "(" expr ")" block
 
-block: "{" assignment* "}"
+block: "{" statement* "}"
 
 IDENT: /[_a-zA-Z][_a-zA-Z0-9]*/
-TYPE: "Int" | "Float" | "String" | "Bool"
+TYPE: "Int" | "Float" | "String" | "Bool" | "Void"
 
 %import common.NEWLINE
 %import common.WS
