@@ -1,4 +1,4 @@
-a: String = "Why would you" + "do this?" - 3;
+a: String = "Why would you" + "do this?";
 b: String = "Hello, I'm doing Quack testing!";
-c: String = "Hi" - 3.5;
+c: String = "Hi";
 

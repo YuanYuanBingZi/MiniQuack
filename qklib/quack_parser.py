@@ -2,7 +2,7 @@ from lark import Lark
 from quack_transformer import QuackTransformer
 
 #read grammar from quack_grammer.txt
-with open('quack_grammar.txt', 'r') as file:
+with open('qklib/quack_grammar.txt', 'r') as file:
         grammar = file.read()
 
 # build the parser

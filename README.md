@@ -25,21 +25,22 @@ Mini-Quack is the third project of CS 461. It includes control flow and type inf
   - `quack_transformer.py`: AST transformation logic.
   - `quack_type_inference.py`: Type inference logic.
   - `quack_code_generator.py`: Code generation logic.
-  - `vm.py`: Virtual machine implementation.
+  - `vm.py`: Virtual machine implementation.   
+      
 - `samples/`: Contains sample test cases.
    - `BasicFunction/`: Test Cases for basic function testing.
-      - `test1_Int.qk`: 
-      - `test2_Float.qk'`:
-      - `test3_String.qk'`:
-      - `test4_Call.qk'`:
-      - `test5_If.qk'`:
-      - `test6_While.qk'`:
+      - `test1_Int.qk`: Int Assignment with Add, Sub Op
+      - `test2_Float.qk'`: Float Assignment with Mul, Div Op
+      - `test3_String.qk'`: String Assignment with Add Op
+      - `test4_Call.qk'`: Method Call with Int, Float, String Type
+      - `test5_If.qk'`: Control Flow: If Statement
+      - `test6_While.qk'`: Control Flow: While Statement
    - `TypeInference/`: Test Cases for Type Inference testing.
-      - `test1_TypeOperations.qk`: 
-      - `test2_TypeMismatch.qk'`:
-      - `test3_VarNotdefined.qk'`:
-      - `test4_Boolean.qk'`:
-      - `test5_functions.qk'`:
+      - `test1_TypeOperations.qk`: Same Type Add/Sub/Mul/Div for Int, Float, String
+      - `test2_TypeMismatch.qk'`: Error of TypeMismatch
+      - `test3_VarNotdefined.qk'`: Error of VarNotDefined
+      - `test4_Boolean.qk'`: Boolean Assignment, Boolean Type for logic Op
+      - `test5_functions.qk'`: Function Declaration
    - `blahblahblah.qk`:
    - `formals.qk`:
    - `ifelse`:
