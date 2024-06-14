@@ -1,4 +1,4 @@
-# Nano Quack & Mini Quack - Intermediate project of CS 461 at UO
+# Nano Quack & Mini Quack & Whole Quack- The project of CS 461 at UO
 The basic framework of this project is forked by the sample code from "Lark Grammar to AST and Symbol Table". Here is its original description: A small example of parsing some parts of the Quack language (class and method declarations), transforming the Lark parse tree into an AST with our own custom classes, and then walking the AST to populate a symbol table with class and method declarations. Thanks to Pranav Mathur for the initial symbol table of built-in classes (in `qklib/builtin_methods.json`).I have followed that structure in filling in additional classes and methods from the source file. 
 
 
@@ -24,8 +24,6 @@ Mini-Quack is the third project of CS 461. It includes control flow and type inf
   - `quack_parser.py`: Parser implementation.
   - `quack_transformer.py`: AST transformation logic.
   - `quack_type_inference.py`: Type inference logic.
-  - `quack_code_generator.py`: Code generation logic.
-  - `vm.py`: Virtual machine implementation.   
       
 - `samples/`: Contains sample test cases.
    - `BasicFunction/`: Test Cases for basic function testing.
@@ -45,10 +43,20 @@ Mini-Quack is the third project of CS 461. It includes control flow and type inf
    - `formals.qk`: original test code
    - `ifelse`: original test code
   
-  - `vm.py`: Virtual machine implementation.
 - `OBJ/`: Contains generated assembly or object files.
 - `quack.sh`: Script to compile and run a Quack program.
 - `quackc.sh`: Script to compile a Quack program without running it.
+
+# Whole Quack
+I add the code generation file to generate assembly code.
+Now it can be tested with a simple quack program about Integer Assignment.
+
+The code is:
+```python
+a: Int = 15;
+b: Int = 9;
+c: Int = a + b;
+d: Int = c - 5;
 
 
 ## To Run

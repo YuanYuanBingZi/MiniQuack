@@ -29,7 +29,7 @@ class QuackCodeGenerator:
         elif isinstance(node, Return):
             self.gen_return(node)
         else:
-            self.generic_error(node)
+            self.generate_error(node)
     
     def generate_error(self, node):
         raise Exception(f'No generator found for{type(node).__name__}')
@@ -73,7 +73,7 @@ class QuackCodeGenerator:
         var_index = self.get_var_index(node.name)
         self.code.append(f'load {var_index}')
     
-    def gen_func(self,node):
+    def gen_funcDef(self,node):
         self.code.append(f'.method{node.name}')
         if node.params:
             self.code.append(f'.args {", ".join(param[0] for param in node.params)}')
