@@ -51,6 +51,11 @@ Mini-Quack is the third project of CS 461. It includes control flow and type inf
 I add the code generation file to generate assembly code.
 Now it can be tested with a simple quack program about Integer Assignment.
 
+To Test the Code:
+```python
+python3 qklib/quack_parser.py samples/CodeGeneration/add.qk
+```
+
 The Quack code is:
 ```python
 a: Int = 15;
