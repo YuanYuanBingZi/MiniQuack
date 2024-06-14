@@ -16,8 +16,8 @@ if __name__ == "__main__":
     import sys 
     code = open(sys.argv[1]).read()
     tree = parse_code(code)
-    print(tree)
+    #print(f'AST Tree: {tree}\n')
     codegen = QuackCodeGenerator()
     codegen.generate(tree)
-    print(codegen.get_code())
+    print(f'Code Generation: \n{codegen.get_code()}')
     

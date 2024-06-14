@@ -4,6 +4,8 @@ from quack_ast import Add, Assign, Block, FuncDef, Int, Return, Sub, Var
 class QuackCodeGenerator:
     def __init__(self):
         self.code = []
+        self.var_mapping = {}
+        self.var_counter = 0
         self.label_counter = 0
     
     def generate(self, node):
@@ -32,9 +34,17 @@ class QuackCodeGenerator:
     def generate_error(self, node):
         raise Exception(f'No generator found for{type(node).__name__}')
     
+    def get_var_index(self, var_name):
+        if var_name not in self.var_mapping:
+            self.var_mapping[var_name] = self.var_counter
+            self.var_counter += 1
+        return self.var_mapping[var_name]
+
+    
     def gen_assign(self, node):
         self.generate(node.expr)
-        self.code.append(f'store {node.expr}')
+        var_index = self.get_var_index(node.var)
+        self.code.append(f'store {var_index}')
     
     def gen_add(self, node):
         self.generate(node.left)
@@ -60,7 +70,8 @@ class QuackCodeGenerator:
         self.code.append(f'const {node.value}')
     
     def gen_var(self, node):
-        self.code.append(f'load {node.name}')
+        var_index = self.get_var_index(node.name)
+        self.code.append(f'load {var_index}')
     
     def gen_func(self,node):
         self.code.append(f'.method{node.name}')
@@ -96,4 +107,5 @@ class QuackCodeGenerator:
         return label
     
     def get_code(self):
+        self.code.insert(0, f'alloc {len(self.var_mapping)}')
         return '\n'.join(self.code)
