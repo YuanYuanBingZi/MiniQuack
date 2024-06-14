@@ -1,30 +1,53 @@
 #AST节点类用于表示抽象语法树（AST)的结构。每个节点类对应一种语法结构。
-class Assign:
+
+class ASTNode:
+    def gen_code(self, generator):
+        raise NotImplementedError("gen_code not implemented in base class")
+
+class Assign(ASTNode):
     # Assign表示赋值语句
     def __init__(self, var, vartype, expr):
-        self.var = var
+        if isinstance(var, str):
+            self.var = Var(var)  # Convert string to Var object if necessary
+        else:
+            self.var = var
         self.vartype = vartype
         self.expr = expr
     
     def __repr__(self):
         return f"Assign({self.var}, {self.vartype}, {self.expr})"
+    
+    def gen_code(self, generator):
+        self.expr.gen_code(generator)
+        var_index = generator.get_var_index(self.var.name)
+        generator.code.append(f'store {var_index}')
 
 
-class Add:
+class Add(ASTNode):
     def __init__(self, left, right):
         self.left = left
         self.right = right 
     
     def __repr__(self):
         return f"Add({self.left}, {self.right})"
+    
+    def gen_code(self, generator):
+        self.left.gen_code(generator)
+        self.right.gen_code(generator)
+        generator.code.append('call Int: plus')
 
-class Sub:
+class Sub(ASTNode):
     def __init__(self, left, right):
         self.left = left
         self.right = right 
     
     def __repr__(self):
         return f"Sub({self.left}, {self.right})"
+    
+    def gen_code(self, generator):
+        self.left.gen_code(generator)
+        self.right.gen_code(generator)
+        generator.code.append('call Int: minus')
 
 class Mul:
     def __init__(self, left, right):
@@ -42,20 +65,28 @@ class Div:
     def __repr__(self):
         return f"Div({self.left}, {self.right})"
 
-class Var:
+class Var(ASTNode):
     #Var表示变量
     def __init__(self, name):
         self.name = name
+    
     def __repr__(self):
         return f"Var({self.name})"
+    
+    def gen_code(self, generator):
+        var_index = generator.get_var_index(self.name)
+        generator.code.append(f'load {var_index}')
 
-class Int:
+class Int(ASTNode):
     #Number表示整数常量
     def __init__(self, value):
         self.value = value
     
     def __repr__(self):
         return f"Int({self.value})"
+    
+    def gen_code(self, generator):
+        generator.code.append(f'const {self.value}')
 
 class String:
     def __init__(self, value):
@@ -113,12 +144,16 @@ class Return:
     def __repr__(self):
         return f"Return({self.expr})"
 
-class Block:
+class Block(ASTNode):
     def __init__(self, statements):
         self.statements = statements
 
     def __repr__(self):
         return f"Block({self.statements})"
+    
+    def gen_code(self, generator):
+        for stmt in self.statements:
+            stmt.gen_code(generator)
 
 class If:
     def __init__(self, condition, then_body, else_body):
