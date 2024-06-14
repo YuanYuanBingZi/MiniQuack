@@ -222,3 +222,6 @@ class QuackTransformer(Transformer):
     
     def statement(self, items):
         return items[0]
+    
+    def start(self, items):
+        return Block(items) 

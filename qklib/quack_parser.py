@@ -1,6 +1,6 @@
 from lark import Lark
 from quack_transformer import QuackTransformer
-
+from quack_code_generator import QuackCodeGenerator
 #read grammar from quack_grammer.txt
 with open('qklib/quack_grammar.txt', 'r') as file:
         grammar = file.read()
@@ -16,4 +16,8 @@ if __name__ == "__main__":
     import sys 
     code = open(sys.argv[1]).read()
     tree = parse_code(code)
-    print(tree.pretty())
+    print(tree)
+    codegen = QuackCodeGenerator()
+    codegen.generate(tree)
+    print(codegen.get_code())
+    
