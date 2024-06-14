@@ -51,12 +51,36 @@ Mini-Quack is the third project of CS 461. It includes control flow and type inf
 I add the code generation file to generate assembly code.
 Now it can be tested with a simple quack program about Integer Assignment.
 
-The code is:
+The Quack code is:
 ```python
 a: Int = 15;
 b: Int = 9;
 c: Int = a + b;
 d: Int = c - 5;
+```
+
+The Assembly Tree generate by the Grammar is:
+```python
+AST Tree: Block([Assign(a, Int, Int(15)), Assign(b, Int, Int(9)), Assign(c, Int, Add(Var(a), Var(b))), Assign(d, Int, Sub(Var(c), Int(5)))])
+```
+
+The target code generation is:
+```python
+Code Generation: 
+alloc 4
+const 15
+store 0
+const 9
+store 1
+load 0
+load 1
+call Int: plus
+store 2
+load 2
+const 5
+call Int: minus
+store 3
+```
 
 
 ## To Run
