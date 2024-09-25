@@ -3,7 +3,7 @@ The basic framework of this project is forked by the sample code from "Lark Gram
 
 ---
 
-**Quack** is a custom-built compiler for a subset of the Quack programming language. This project showcases my proficiency in language parsing, AST construction, and static code analysis, all fundamental aspects of compiler development.
+**MiniQuack** is a custom-built compiler for a subset of the Quack programming language. This project showcases my proficiency in language parsing, AST construction, and static code analysis, all fundamental aspects of compiler development.
 
 ## Features:
 - **Parsing with Lark**: Utilizes the Lark parsing library to parse Quack language syntax into an Abstract Syntax Tree (AST). This involves defining a Quack grammar and accurately transforming language constructs into tree structures for further processing.
