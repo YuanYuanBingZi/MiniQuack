@@ -1,6 +1,37 @@
-# Nano Quack & Mini Quack & Whole Quack- The project of CS 461 at UO
+# Quack（Nano & Mini) - The project of CS 461 at UO
 The basic framework of this project is forked by the sample code from "Lark Grammar to AST and Symbol Table". Here is its original description: A small example of parsing some parts of the Quack language (class and method declarations), transforming the Lark parse tree into an AST with our own custom classes, and then walking the AST to populate a symbol table with class and method declarations. Thanks to Pranav Mathur for the initial symbol table of built-in classes (in `qklib/builtin_methods.json`).I have followed that structure in filling in additional classes and methods from the source file. 
 
+---
+
+**Quack** is a custom-built compiler for a subset of the Quack programming language. This project showcases my proficiency in language parsing, AST construction, and static code analysis, all fundamental aspects of compiler development.
+
+## Features:
+- **Parsing with Lark**: Utilizes the Lark parsing library to parse Quack language syntax into an Abstract Syntax Tree (AST). This involves defining a Quack grammar and accurately transforming language constructs into tree structures for further processing.
+  
+- **Abstract Syntax Tree (AST)**: Constructs a well-defined AST that models the source code structure, capturing essential components such as function definitions, control flows, and expressions.
+
+- **Static Type Inference & Type Checking**: Implements type inference algorithms that deduce the types of variables and expressions, performing static type checks to identify mismatches. This aspect showcases my knowledge of type systems and their role in ensuring program correctness at compile time.
+
+- **Symbol Table Construction**: Walks the AST to build and maintain a symbol table, tracking the scope and type of variables, functions, and objects. The symbol table plays a crucial role in ensuring variable declarations and usages are valid.
+
+- **Control Flow and Semantic Analysis**: Supports basic control flow structures (e.g., if-else statements, loops), and performs semantic analysis on the AST to ensure logical consistency.
+
+- **Code Generation**: Converts the processed AST into simple assembly-like instructions that could be used for lower-level execution or further compilation steps. This phase demonstrates my understanding of translating high-level language constructs into machine-level operations.
+
+## Technical Highlights:
+- **Language Design**: Deep understanding of Quack's syntax and semantics, and the ability to convert a high-level language into intermediate representations.
+- **Compiler Phases**: Experience with critical stages of compilation, including lexical analysis, syntax analysis, semantic analysis, and code generation.
+- **Static Analysis**: Solid grasp of static typing, type inference, and enforcing type safety at compile time.
+
+## Technologies:
+- **Programming Language**: Python
+- **Parsing Library**: Lark
+- **Compiler Theory**: AST, type inference, symbol tables, code generation
+
+## Why This Project Matters:
+This project demonstrates my ability to work on complex problems involving language processing, compiler theory, and code generation. It highlights my technical expertise in building parsers, performing static analysis, and designing language systems from scratch—critical skills for any role in systems programming, backend development, or compiler design.
+
+---
 
 # Nano Quack
 This is the second project of CS 461. Its requirement includes:  
